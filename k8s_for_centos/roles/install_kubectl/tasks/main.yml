@@ -1,0 +1,31 @@
+- name: Installing kubectl on master node..
+  apt:
+    name: kubectl
+    state: present
+    update_cache: yes
+    force: yes
+
+- name: Initializing the kubernetes cluster on the master node…
+  shell: kubeadm init --pod-network-cidr="{{ CIDR_RANGE }}" >> cluster_initialized.txt
+  args:
+    chdir: $HOME
+    creates: cluster_initialized.txt
+
+- name: Creating .kube directory
+  file:
+    path: $HOME/.kube
+    state: directory
+    mode: 0755
+
+- name: Configuring users cluster access
+  copy:
+    src: /etc/kubernetes/admin.conf
+    dest: /home/ansible/.kube/config
+    remote_src: yes
+    owner: root
+
+- name: Installing Pod network…. (Flannel)
+  shell: kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml >> pod_network_setup.txt
+  args:
+    chdir: $HOME
+    creates: pod_network_setup.txt
