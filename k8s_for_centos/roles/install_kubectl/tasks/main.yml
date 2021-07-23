@@ -18,7 +18,7 @@
   shell: firewall-cmd --permanent --add-port=10255/tcp
 
 - name: firewall reload
-  shell: firewall-cmd –reload
+  shell: firewall-cmd –-reload
 
 - name: Set the following firewall rules on bridge-nf-call-iptables
   shell: echo '1' > /proc/sys/net/bridge/bridge-nf-call-iptables
