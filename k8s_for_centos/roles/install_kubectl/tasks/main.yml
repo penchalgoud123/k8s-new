@@ -30,11 +30,11 @@
   #args:
     #chdir: $HOME
     #creates: cluster_initialized.txt
- - name: Initializing the kubernetes cluster on the master node…
-   shell: kubeadm init --kubernetes-version=1.19.3 >> cluster_initialized.txt
-   args:
-     chdir: $HOME
-     creates: cluster_initialized.txt    
+- name: Initializing the kubernetes cluster on the master node…
+  shell: kubeadm init --kubernetes-version=1.19.3 >> cluster_initialized.txt
+  args:
+    chdir: $HOME
+    creates: cluster_initialized.txt    
 
 - name: Creating .kube directory
   file:
