@@ -25,11 +25,16 @@
 - name: Set the following firewall rules on bridge-nf-call-iptables
   shell: echo '1' > /proc/sys/net/bridge/bridge-nf-call-iptables
   
-- name: Initializing the kubernetes cluster on the master node…
-  shell: kubeadm init --pod-network-cidr="{{ CIDR_RANGE }}" >> cluster_initialized.txt
-  args:
-    chdir: $HOME
-    creates: cluster_initialized.txt
+#- name: Initializing the kubernetes cluster on the master node…
+  #shell: kubeadm init --pod-network-cidr="{{ CIDR_RANGE }}" >> cluster_initialized.txt
+  #args:
+    #chdir: $HOME
+    #creates: cluster_initialized.txt
+ - name: Initializing the kubernetes cluster on the master node…
+   shell: kubeadm init --kubernetes-version=1.19.3 >> cluster_initialized.txt
+   args:
+     chdir: $HOME
+     creates: cluster_initialized.txt    
 
 - name: Creating .kube directory
   file:
