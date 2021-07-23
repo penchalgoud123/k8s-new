@@ -1,5 +1,5 @@
 - name: Installing kubectl on master node..
-  apt:
+  yum:
     name: kubectl
     state: present
     update_cache: yes
