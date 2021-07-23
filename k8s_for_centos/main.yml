@@ -5,3 +5,4 @@
 
   roles:
   - roles/install_k8s_packages
+  - roles/install_kubectl
