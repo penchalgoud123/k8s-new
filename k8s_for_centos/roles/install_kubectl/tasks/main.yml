@@ -1,10 +1,4 @@
-- name: Installing kubectl on master node..
-  yum:
-    name: kubectl
-    state: present
-    update_cache: yes
-    force: yes
-
+---
 - name: Initializing the kubernetes cluster on the master node…
   shell: kubeadm init --pod-network-cidr="{{ CIDR_RANGE }}" >> cluster_initialized.txt
   args:
