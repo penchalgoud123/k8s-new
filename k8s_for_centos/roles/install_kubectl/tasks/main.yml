@@ -1,4 +1,28 @@
 ---
+- name: Set the following firewall rules on add-port=6443/tcp
+  shell: firewall-cmd --permanent --add-port=6443/tcp
+
+- name: Set the following firewall rules on add-port=2379-2380/tcp
+  shell: firewall-cmd --permanent --add-port=2379-2380/tcp
+
+- name: Set the following firewall rules on add-port=10250/tcp
+  shell: firewall-cmd --permanent --add-port=10250/tcp
+
+- name: Set the following firewall rules on add-port=10251/tcp
+  shell: firewall-cmd --permanent --add-port=10251/tcp
+
+- name: Set the following firewall rules on add-port=10252/tcp
+  shell: firewall-cmd --permanent --add-port=10252/tcp
+
+- name: Set the following firewall rules on add-port=10253/tcp
+  shell: firewall-cmd --permanent --add-port=10255/tcp
+
+- name: firewall reload
+  shell: firewall-cmd –reload
+
+- name: Set the following firewall rules on bridge-nf-call-iptables
+  shell: echo '1' > /proc/sys/net/bridge/bridge-nf-call-iptables
+  
 - name: Initializing the kubernetes cluster on the master node…
   shell: kubeadm init --pod-network-cidr="{{ CIDR_RANGE }}" >> cluster_initialized.txt
   args:
