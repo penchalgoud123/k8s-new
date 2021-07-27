@@ -24,7 +24,3 @@
 
 - name: Deploying docker iptables rule…
   shell: iptables -P FORWARD ACCEPT
-
-- name: Disabling UFW…
-  ufw:
-    state: disabled
