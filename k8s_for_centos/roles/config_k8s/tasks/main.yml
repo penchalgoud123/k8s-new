@@ -1,0 +1,32 @@
+- name: Disabling swap on hosts
+  shell: swapoff -a
+
+- name: Disabling swap from fstab…
+  replace:
+    path: /etc/fstab
+    regexp: ‘^([^#].*?\sswap\s+sw\s+.*)$’
+    replace: ‘# \1’
+
+- name: Creating kubernetes config file for host network…
+  shell:
+    cmd: |
+      cat <<__EOF__ > /etc/sysctl.d/k8s.conf
+        net.bridge.bridge-nf-call-ip6tables=1
+        net.bridge.bridge-nf-call-iptables=1
+      __EOF__
+    args:
+      chdir: /etc/sysctl.d
+      creates: k8s.conf
+
+- name: Applying sysctl file config…
+  shell: sysctl --system
+
+- name: Applying newly created kubernetes config file…
+  shell: sysctl -p /etc/sysctl.d/k8s.conf
+
+- name: Deploying docker iptables rule…
+  shell: iptables -P FORWARD ACCEPT
+
+- name: Disabling UFW…
+  ufw:
+    state: disabled
