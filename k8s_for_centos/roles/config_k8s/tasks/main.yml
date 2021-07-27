@@ -14,7 +14,7 @@
     owner: root
     group: root
     mode: '1777'
-    state: present
+    state: file
     
 - name: Applying sysctl file config…
   shell: sysctl --system
