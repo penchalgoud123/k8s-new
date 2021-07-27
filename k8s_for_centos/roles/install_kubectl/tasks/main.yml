@@ -31,7 +31,7 @@
     #chdir: $HOME
     #creates: cluster_initialized.txt
 - name: Initializing the kubernetes cluster on the master node…
-  shell: kubeadm init --pod-network-cidr=10.30.116.0/24
+  shell: kubeadm init --pod-network-cidr=10.30.116.0/24 --version=1.19.3
   register: result
   until: result.stdout.find("Your Kubernetes master has initialized successfully!") != -1
   retries: 1
