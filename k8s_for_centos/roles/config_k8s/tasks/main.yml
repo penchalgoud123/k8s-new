@@ -10,7 +10,7 @@
 - name: Creating kubernetes config file for host network…
   file:
     src: files/k8s.conf
-    dest: /etc/sysctl.d/k8s.conf
+    dest: /etc/sysctl.d/
     owner: root
     group: root
     mode: '1777'
