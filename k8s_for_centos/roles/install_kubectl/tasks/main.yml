@@ -31,10 +31,11 @@
     #chdir: $HOME
     #creates: cluster_initialized.txt
 - name: Initializing the kubernetes cluster on the master node…
-  shell: kubeadm init --kubernetes-version=1.19.3 >> cluster_initialized.txt
-  args:
-    chdir: $HOME
-    creates: cluster_initialized.txt    
+  shell: kubeadm init --pod-network-cidr=10.30.116.0/24
+  register: result
+  until: result.stdout.find("Your Kubernetes master has initialized successfully!") != -1
+  retries: 1
+  delay: 20    
 
 - name: Creating .kube directory
   file:
